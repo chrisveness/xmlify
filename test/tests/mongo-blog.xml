@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root id="54551d0b660186630b790db0">
+    <title>My Blog</title>
+    <author>Me</author>
+    <body>Lots of interesting stuff to read</body>
+    <comments>
+        <comment>
+            <body>Nice blog</body>
+            <date>2014-11-02T00:00:00.000Z</date>
+        </comment>
+        <comment>
+            <body>Bit short</body>
+            <date>2014-11-03T00:00:00.000Z</date>
+        </comment>
+    </comments>
+    <date>2014-11-01T00:00:00.000Z</date>
+    <hidden>false</hidden>
+    <meta>
+        <votes>9</votes>
+        <favs>99</favs>
+    </meta>
+</root>

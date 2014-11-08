@@ -1,0 +1,24 @@
+{
+    "_firstName": "John",
+    "_lastName": "Smith",
+    "_age": 25,
+    "address": {
+        "_streetAddress": "21 2nd Street",
+        "_city": "New York",
+        "_state": "NY",
+        "_postalCode": "10021"
+    },
+    "phoneNumbers": [
+        {
+            "_type": "home",
+            "_number": "212 555-1234"
+        },
+        {
+            "_type": "fax",
+            "_number": "646 555-4567"
+        }
+    ],
+    "gender": {
+        "_type": "male"
+    }
+}

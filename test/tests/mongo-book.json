@@ -1,0 +1,8 @@
+{
+    "_id": 123456789,
+    "title": "MongoDB: The Definitive Guide",
+    "author": [ "Kristina Chodorow", "Mike Dirolf" ],
+    "published_date": "2010-09-24",
+    "pages": 216,
+    "language": "English"
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test id="544e730e5730bb014972de3d" attr="an-attribute" dateAttr="2014-11-03T12:13:14.000Z">
+    <_notAnAttr><a>x</a><b>y</b></_notAnAttr>
+    <text>just some regular text</text>
+    <special-chars>characters such as &lt;, >, &amp; can cause issues</special-chars>
+    <empty></empty>
+    <emptyArray/>
+    <null></null>
+    <date>2014-11-04T13:14:15.000Z</date>
+    <notADate>2014-11-04 at ten past noon</notADate>
+</test>

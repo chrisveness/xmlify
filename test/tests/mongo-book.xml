@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book id="123456789">
+    <title>MongoDB: The Definitive Guide</title>
+    <author>Kristina Chodorow</author>
+    <author>Mike Dirolf</author>
+    <published_date>2010-09-24T00:00:00.000Z</published_date>
+    <pages>216</pages>
+    <language>English</language>
+</book>

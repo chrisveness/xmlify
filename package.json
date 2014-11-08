@@ -1,0 +1,27 @@
+{
+  "name": "xmlify",
+  "description": "JavaScript/JSON/MongoDb/Mongoose to XML conversion",
+  "author": "Chris Veness",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "xmlify.js",
+  "keywords": [
+    "JavaScript",
+    "JSON",
+    "Mongoose",
+    "MongoDb",
+    "XML",
+    "conversion"
+  ],
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
+  "dependencies": {
+    "inflection": "^1.5.1",
+    "xmldom": "^0.1.19"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "should": "^4.1.0"
+  }
+}

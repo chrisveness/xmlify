@@ -1,0 +1,16 @@
+{
+    "_id": "54551d0b660186630b790db0",
+    "title": "My Blog",
+    "author": "Me",
+    "body":   "Lots of interesting stuff to read",
+    "comments": [
+        { "body": "Nice blog", "date": "2014-11-02" },
+        { "body": "Bit short", "date": "2014-11-03" }
+    ],
+    "date": "2014-11-01",
+    "hidden": false,
+    "meta": {
+        "votes": 9,
+        "favs": 99
+    }
+}

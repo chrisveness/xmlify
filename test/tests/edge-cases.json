@@ -1,0 +1,13 @@
+{
+    "_id": "544e730e5730bb014972de3d",
+    "_attr": "an-attribute",
+    "_dateAttr": "2014-11-03T12:13:14",
+    "_notAnAttr": { "a": "x", "b": "y" },
+    "text": "just some regular text",
+    "special-chars": "characters such as <, >, & can cause issues",
+    "empty": "",
+    "emptyArray": [],
+    "null": null,
+    "date": "2014-11-04T13:14:15",
+    "notADate": "2014-11-04 at ten past noon"
+}

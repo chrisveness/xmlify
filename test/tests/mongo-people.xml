@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people>
+    <person id="545c73c238024ab5135396b8">
+        <name>
+            <first>Walter</first>
+            <last>White</last>
+        </name>
+    </person>
+    <person id="544f7d0532eb69b14ee29012">
+        <name>
+            <first>Jesse</first>
+            <last>Pinkman</last>
+        </name>
+    </person>
+</people>
