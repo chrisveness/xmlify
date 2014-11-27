@@ -2,7 +2,7 @@
   "name": "xmlify",
   "description": "JavaScript/JSON/MongoDb/Mongoose to XML conversion",
   "author": "Chris Veness",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "xmlify.js",
   "keywords": [
@@ -13,9 +13,9 @@
     "XML",
     "conversion"
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "git://github.com/chrisveness/xmlify.git"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chrisveness/xmlify.git"
   },
   "bugs": "https://github.com/chrisveness/xmlify/issues",
   "scripts": {
