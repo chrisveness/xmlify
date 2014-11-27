@@ -104,6 +104,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
      * @param {Object} xmlNode     Node converted JavaScript is to be appended to
      */
     function jsToXml(jsObj, elementName, xmlNode) {
+        var node, element, xmlChildNode;
 
         // if jsObj is a (ISO) string date, convert it to a Date object
         var regexDate = /^\d{4}-\d{2}-\d{2}/;
@@ -123,27 +124,26 @@ var xmlify = function(jsObject /*, [root], [options] */) {
 
         // handle primitives
         if (isPrimitive(jsObj)) {
-            var val = jsObj===null ? '' : jsObj.toString();
-            var node = doc.createTextNode(val);
-            var el;
+            var value = jsObj===null ? '' : jsObj.toString();
+            node = doc.createTextNode(value);
             if (elementName == config.attributeChar) {
                 // if elementName == '_', attach value directly to parent
-                el = node;
+                element = node;
             } else {
                 // otherwise normal element + value
-                el = doc.createElement(elementName);
-                el.appendChild(node);
+                element = doc.createElement(elementName);
+                element.appendChild(node);
             }
-            xmlNode.appendChild(el);
+            xmlNode.appendChild(element);
             return;
         }
 
         // handle dates
         if (jsObj.constructor == Date) {
-            var node = doc.createTextNode(dateFormatted(jsObj));
-            var el = doc.createElement(elementName);
-            el.appendChild(node);
-            xmlNode.appendChild(el);
+            node = doc.createTextNode(dateFormatted(jsObj));
+            element = doc.createElement(elementName);
+            element.appendChild(node);
+            xmlNode.appendChild(element);
             return;
         }
 
@@ -151,8 +151,8 @@ var xmlify = function(jsObject /*, [root], [options] */) {
         if (jsObj.constructor == Array) {
             var singularName = inflection.singularize(elementName);
             // add wrapper node?
-            if ((config.wrapArrays && elementName!=singularName) || jsObj.length==0) {
-                var xmlChildNode = doc.createElement(elementName);
+            if ((config.wrapArrays && elementName!=singularName) || jsObj.length===0) {
+                xmlChildNode = doc.createElement(elementName);
                 xmlNode.appendChild(xmlChildNode);
                 xmlNode = xmlChildNode;
             }
@@ -169,7 +169,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
 
         // handle objects (recursively)
         if (typeof jsObj == 'object') {
-            var xmlChildNode = doc.createElement(elementName);
+            xmlChildNode = doc.createElement(elementName);
             xmlNode.appendChild(xmlChildNode);
             // recursively convert each object property
             for (var childName in jsObj) {
