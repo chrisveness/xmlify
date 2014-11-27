@@ -106,6 +106,9 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     function jsToXml(jsObj, elementName, xmlNode) {
         var node, element, xmlChildNode;
 
+        // handle undefined property
+        if (typeof jsObj == 'undefined') jsObj = '[undefined]';
+
         // if jsObj is a (ISO) string date, convert it to a Date object
         var regexDate = /^\d{4}-\d{2}-\d{2}/;
         if (jsObj && jsObj.constructor == String) {
@@ -150,8 +153,10 @@ var xmlify = function(jsObject /*, [root], [options] */) {
         // handle arrays (recursively)
         if (jsObj.constructor == Array) {
             var singularName = inflection.singularize(elementName);
-            // add wrapper node?
-            if ((config.wrapArrays && elementName!=singularName) || jsObj.length===0) {
+            // add wrapper node? (always for empty arrays and if root element is array)
+            if ((config.wrapArrays && elementName!=singularName)
+                || jsObj.length===0
+                || xmlNode.constructor.name=='Document') {
                 xmlChildNode = doc.createElement(elementName);
                 xmlNode.appendChild(xmlChildNode);
                 xmlNode = xmlChildNode;

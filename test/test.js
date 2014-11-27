@@ -43,6 +43,28 @@ describe('xmlify', function() {
         });
     });
 
+    it('should convert mongo-people (singular root)', function(done) {
+        // bit pointless, but must be handled...
+        fs.readFile(__dirname+'/tests/mongo-people-person.xml', function (err, data) {
+            if (err) throw err;
+            var xml = data.toString().replace(/\n\s*/g,'');
+            var json = require(__dirname+'/tests/mongo-people.json');
+            xmlify(json, 'person').should.eql(xml);
+            done();
+        });
+    });
+
+    it('should convert mongo-people (default root)', function(done) {
+        // array with no name of objects with no name! not useful, but must be handled...
+        fs.readFile(__dirname+'/tests/mongo-people-default.xml', function (err, data) {
+            if (err) throw err;
+            var xml = data.toString().replace(/\n\s*/g,'');
+            var json = require(__dirname+'/tests/mongo-people.json');
+            xmlify(json).should.eql(xml);
+            done();
+        });
+    });
+
     it('should convert mongo-people-nowrap', function(done) {
         fs.readFile(__dirname+'/tests/mongo-people-nowrap.xml', function (err, data) {
             if (err) throw err;
@@ -108,6 +130,18 @@ describe('xmlify', function() {
             if (err) throw err;
             var xml = data.toString().replace(/\n\s*/g,'');
             var json = require(__dirname+'/tests/edge-cases.json');
+            xmlify(json, 'test', {xmlDeclaration:true}).should.eql(xml);
+            done();
+        });
+    });
+
+    it('should handle undefined properties', function(done) {
+        fs.readFile(__dirname+'/tests/mongo-blog-undefined.xml', function (err, data) {
+            if (err) throw err;
+            var xml = data.toString().replace(/\n\s*/g,'');
+            var json = require(__dirname+'/tests/mongo-blog.json');
+            json._id = undefined;
+            json.title = undefined;
             xmlify(json, 'test', {xmlDeclaration:true}).should.eql(xml);
             done();
         });
