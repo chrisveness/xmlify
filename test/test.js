@@ -65,6 +65,17 @@ describe('xmlify', function() {
         });
     });
 
+    it('should convert mongo-people (undefined root)', function(done) {
+        // array with no name of objects with no name! not useful, but must be handled...
+        fs.readFile(__dirname+'/tests/mongo-people-default.xml', function (err, data) {
+            if (err) throw err;
+            var xml = data.toString().replace(/\n\s*/g, '');
+            var json = require(__dirname+'/tests/mongo-people.json');
+            xmlify(json, undefined).should.eql(xml);
+            done();
+        });
+    });
+
     it('should convert mongo-people-nowrap', function(done) {
         fs.readFile(__dirname+'/tests/mongo-people-nowrap.xml', function (err, data) {
             if (err) throw err;

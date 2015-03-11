@@ -60,6 +60,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     // options: string argument specifies root, object literal specifies any option(s)
     for (var arg=1; arg<arguments.length; arg++) {
         var argument = arguments[arg];
+        if (typeof argument == 'undefined') continue;
         // string argument is shorthand to specify root
         if (argument.constructor == String) {
             config.root = argument;
