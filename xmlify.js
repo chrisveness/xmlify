@@ -2,7 +2,6 @@
 /*  Xmlify                                                   (c) Chris Veness 2014 / MIT Licence  */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-/* jshint node:true *//* global define */
 'use strict';
 
 
@@ -79,15 +78,15 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     var doc = new DomParser().parseFromString('dummy');
 
     // insert root tag if jsObject is array and no wrapArrays option to do it for us
-    var xmlNode = doc;
+    var xmlRoot = doc;
     if (jsObject.constructor==Array && !config.wrapArrays) {
-        var xmlChildNode = doc.createElement(config.root);
-        doc.appendChild(xmlChildNode);
-        xmlNode = xmlChildNode;
+        var xmlRootNode = doc.createElement(config.root);
+        doc.appendChild(xmlRootNode);
+        xmlRoot = xmlRootNode;
     }
 
-    // convert jsObject into xmlNode
-    jsToXml(jsObject, config.root, xmlNode);
+    // convert jsObject into xmlRoot
+    jsToXml(jsObject, config.root, xmlRoot);
 
     var xml = doc.documentElement.toString();
 
@@ -106,7 +105,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     function jsToXml(jsObj, elementName, xmlNode) {
         var node, element, xmlChildNode;
 
-        // handle undefined property
+        // if jsObj is undefined, convert it to string '[undefined]'
         if (typeof jsObj == 'undefined') jsObj = '[undefined]';
 
         // if jsObj is a (ISO) string date, convert it to a Date object
@@ -163,7 +162,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
             }
             // recursively convert each array element
             for (var n=0; n<jsObj.length; n++) {
-                if (jsObj[n].constructor == Array) throw Error('Cannot convert nested arrays');
+                if (jsObj[n].constructor == Array) throw Error('Xmlify: Cannot convert nested arrays');
                 jsToXml(jsObj[n], config.wrapArrays ? singularName : elementName, xmlNode);
             }
             return;
@@ -186,7 +185,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
         }
 
         // should never arrive here!
-        throw Error('Unrecognised '+(typeof jsObj)+' '+jsObj.constructor.name);
+        throw Error('Xmlify: Unrecognised '+(typeof jsObj)+' '+jsObj.constructor.name);
     }
 
 
@@ -209,7 +208,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
      * Attributes start with underscore (or alternative configured attribute character).
      */
     function isAttribute(propertyName) {
-        return propertyName.length>1 && propertyName.slice(0,1)==config.attributeChar;
+        return propertyName.length>1 && propertyName.slice(0, 1)==config.attributeChar;
     }
 
 
@@ -230,10 +229,10 @@ var xmlify = function(jsObject /*, [root], [options] */) {
                     d = date.toString();
                     break;
                 default:
-                    throw new Error('Unknown date format '+config.dateFormat);
+                    throw new Error('Xmlify: Unknown date format '+config.dateFormat);
             }
         } catch (e) {
-            throw new Error('Invalid date '+date);
+            throw new Error('Xmlify: Invalid date '+date);
         }
         return d;
     }

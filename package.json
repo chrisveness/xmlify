@@ -22,11 +22,28 @@
     "test": "mocha test/test.js"
   },
   "dependencies": {
-    "inflection": "^1.5.1",
+    "inflection": "^1.6.0",
     "xmldom": "^0.1.19"
   },
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "should": "^4.1.0"
+    "eslint": "^0.16.2",
+    "mocha": "^2.2.1",
+    "should": "^5.1.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "curly": 0,
+      "eqeqeq": 0,
+      "quotes": [ 2, "single", "avoid-escape" ],
+      "new-cap": [ 1,  { "capIsNewExceptions": [ "Error" ] } ],
+      "no-multi-spaces": 0,
+      "no-path-concat": 0,
+      "no-underscore-dangle": 0,
+      "no-use-before-define": "nofunc",
+      "space-infix-ops": 0
+    }
   }
 }
