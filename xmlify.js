@@ -50,11 +50,11 @@ var inflection = require( 'inflection' );
 var xmlify = function(jsObject /*, [root], [options] */) {
 
     var config = {
-        attributeChar: '_',    // attributes indicator (empty string for no attributes)
-        dateFormat: 'ISO',     // how dates should be formatted (ISO / SQL / JS)
-        xmlDeclaration: true,  // whether to include an xml declaration
-        root: 'root',          // name of XML root element
-        wrapArrays: true       // whether to wrap (plural) arrays in enclosing element
+        attributeChar:  '_',    // attributes indicator (empty string for no attributes)
+        dateFormat:     'ISO',  // how dates should be formatted (ISO / SQL / JS)
+        xmlDeclaration: true,   // whether to include an xml declaration
+        root:           'root', // name of XML root element
+        wrapArrays:     true,   // whether to wrap (plural) arrays in enclosing element
     };
 
     // options: string argument specifies root, object literal specifies any option(s)
@@ -120,7 +120,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
         // handle attributes
         if (isAttribute(elementName) && (isPrimitive(jsObj) || jsObj.constructor==Date)) {
             var attrName = elementName.slice(1); // remove attributeChar prefix
-            var attrVal = jsObj.constructor==Date ? dateFormatted(jsObj) : jsObj.toString();
+            var attrVal = jsObj===null ? '' : jsObj.constructor==Date ? dateFormatted(jsObj) : jsObj.toString();
             xmlNode.setAttribute(attrName, attrVal);
             return;
         }
@@ -218,6 +218,9 @@ var xmlify = function(jsObject /*, [root], [options] */) {
      */
     function dateFormatted(date) {
         var d;
+
+        if (date.toString() == 'Invalid Date') return ''; // eg MySQL 0000-00-00
+
         try {
             switch (config.dateFormat) {
                 case 'ISO': // YYYY-MM-DDTHH:MM:SS.mmmZ

@@ -2,7 +2,6 @@
 /* Tests                                                                                          */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-/* jshint node:true *//* global __dirname, describe, it */
 'use strict';
 
 
@@ -81,7 +80,7 @@ describe('xmlify', function() {
             if (err) throw err;
             var xml = data.toString().replace(/\n\s*/g, '');
             var json = require(__dirname+'/tests/mongo-people.json');
-            xmlify(json, {root: 'people', wrapArrays: false}).should.eql(xml);
+            xmlify(json, { root: 'people', wrapArrays: false }).should.eql(xml);
             done();
         });
     });
@@ -91,7 +90,7 @@ describe('xmlify', function() {
             if (err) throw err;
             var xml = data.toString().replace(/\n\s*/g, '');
             var json = require(__dirname+'/tests/mongo-book.json');
-            xmlify(json, {root: 'book', wrappedArrays: true}).should.eql(xml);
+            xmlify(json, { root: 'book', wrappedArrays: true }).should.eql(xml);
             done();
         });
     });
@@ -141,6 +140,7 @@ describe('xmlify', function() {
             if (err) throw err;
             var xml = data.toString().replace(/\n\s*/g, '');
             var json = require(__dirname+'/tests/edge-cases.json');
+            json.date0 = new Date('0000-00-00'); // can be generated from MySQL
             xmlify(json, 'test', { xmlDeclaration: true }).should.eql(xml);
             done();
         });

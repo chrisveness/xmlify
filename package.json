@@ -22,28 +22,33 @@
     "test": "mocha test/test.js"
   },
   "dependencies": {
-    "inflection": "^1.6.0",
+    "inflection": "^1.7.1",
     "xmldom": "^0.1.19"
   },
   "devDependencies": {
-    "eslint": "^0.16.2",
-    "mocha": "^2.2.1",
-    "should": "^5.1.0"
+    "eslint": "^1.4.1",
+    "mocha": "^2.3.2",
+    "npm-check-updates": "^1.5.1",
+    "should": "^7.1.0"
   },
   "eslintConfig": {
+    "extends": "eslint:recommended",
     "env": {
+      "mocha": true,
       "node": true
     },
     "rules": {
-      "curly": 0,
-      "eqeqeq": 0,
+      "comma-dangle": [ 2, "always-multiline" ],
+      "curly": [ 2, "multi-line" ],
+      "indent": [ 2, 4, { "SwitchCase": 1 } ],
+      "key-spacing": [ 1, { "align": "value" } ],
+      "no-console": 1,
+      "no-redeclare": 1,
+      "no-shadow": 1,
+      "no-unused-vars": 1,
+      "object-curly-spacing": [ 2, "always" ],
       "quotes": [ 2, "single", "avoid-escape" ],
-      "new-cap": [ 1,  { "capIsNewExceptions": [ "Error" ] } ],
-      "no-multi-spaces": 0,
-      "no-path-concat": 0,
-      "no-underscore-dangle": 0,
-      "no-use-before-define": "nofunc",
-      "space-infix-ops": 0
+      "strict": [ 2, "global" ]
     }
   }
 }
