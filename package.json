@@ -2,7 +2,7 @@
   "name": "xmlify",
   "description": "JavaScript/JSON/MongoDb/Mongoose to XML conversion",
   "author": "Chris Veness",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "xmlify.js",
   "keywords": [
