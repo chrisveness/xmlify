@@ -5,7 +5,7 @@
     <special-chars>characters such as &lt;, >, &amp; can cause issues</special-chars>
     <empty></empty>
     <emptyArray/>
-    <null></null>
+    <null xsi:nil="true"></null>
     <date>2014-11-04T13:14:15.000Z</date>
     <notADate>2014-11-04 at ten past noon</notADate>
     <date0></date0>

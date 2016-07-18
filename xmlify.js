@@ -137,6 +137,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
                 element = doc.createElement(elementName);
                 element.appendChild(node);
             }
+            if (jsObj === null) element.setAttribute('xsi:nil', true);
             xmlNode.appendChild(element);
             return;
         }
