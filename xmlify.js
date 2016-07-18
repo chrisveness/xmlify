@@ -7,8 +7,8 @@
 
 // xmldom for createElement, createTextNode, appendChild, setAttribute;
 // inflection for singularisation
-var DomParser = require('xmldom').DOMParser;
-var inflection = require( 'inflection' );
+const DomParser  = require('xmldom').DOMParser;
+const inflection = require( 'inflection' );
 
 
 /*
@@ -47,9 +47,9 @@ var inflection = require( 'inflection' );
  * @param {Object} [options] Options which can be set
  * @returns {string} jsObject converted into XML
  */
-var xmlify = function(jsObject /*, [root], [options] */) {
+const xmlify = function(jsObject /*, [root], [options] */) {
 
-    var config = {
+    const config = {
         attributeChar:  '_',    // attributes indicator (empty string for no attributes)
         dateFormat:     'ISO',  // how dates should be formatted (ISO / SQL / JS)
         xmlDeclaration: true,   // whether to include an xml declaration
@@ -58,8 +58,8 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     };
 
     // options: string argument specifies root, object literal specifies any option(s)
-    for (var arg=1; arg<arguments.length; arg++) {
-        var argument = arguments[arg];
+    for (let arg=1; arg<arguments.length; arg++) {
+        const argument = arguments[arg];
         if (typeof argument == 'undefined') continue;
         // string argument is shorthand to specify root
         if (argument.constructor == String) {
@@ -67,21 +67,21 @@ var xmlify = function(jsObject /*, [root], [options] */) {
         }
         // object argument specifies set of options
         if (argument.constructor == Object) {
-            for (var property in config) {
+            for (let property in config) {
                 if (property in argument) config[property] = argument[property];
             }
         }
     }
 
-    var xmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
+    const xmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
 
     // dummy document for creating elements & text nodes
-    var doc = new DomParser().parseFromString('dummy');
+    const doc = new DomParser().parseFromString('dummy');
 
     // insert root tag if jsObject is array and no wrapArrays option to do it for us
-    var xmlRoot = doc;
+    let xmlRoot = doc;
     if (jsObject.constructor==Array && !config.wrapArrays) {
-        var xmlRootNode = doc.createElement(config.root);
+        const xmlRootNode = doc.createElement(config.root);
         doc.appendChild(xmlRootNode);
         xmlRoot = xmlRootNode;
     }
@@ -89,7 +89,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
     // convert jsObject into xmlRoot
     jsToXml(jsObject, config.root, xmlRoot);
 
-    var xml = doc.documentElement.toString();
+    let xml = doc.documentElement.toString();
 
     if (config.xmlDeclaration) xml = xmlDeclaration + xml;
 
@@ -104,31 +104,30 @@ var xmlify = function(jsObject /*, [root], [options] */) {
      * @param {Object} xmlNode     Node converted JavaScript is to be appended to
      */
     function jsToXml(jsObj, elementName, xmlNode) {
-        var node, element, xmlChildNode;
-
         // if jsObj is undefined, convert it to string '[undefined]'
         if (typeof jsObj == 'undefined') jsObj = '[undefined]';
 
         // if jsObj is a (ISO) string date, convert it to a Date object
-        var regexDate = /^\d{4}-\d{2}-\d{2}/;
+        const regexDate = /^\d{4}-\d{2}-\d{2}/;
         if (jsObj && jsObj.constructor == String) {
-            var d = regexDate.exec(jsObj);           // string starts yyyy-mm-dd...
+            let d = regexDate.exec(jsObj);           // string starts yyyy-mm-dd...
             if (d) d = new Date(jsObj);              // ... attempt to convert to date
             if (d && !isNaN(d.getTime())) jsObj = d; // ... it's good, convert jsObj
         }
 
         // handle attributes
         if (isAttribute(elementName) && (isPrimitive(jsObj) || jsObj.constructor==Date)) {
-            var attrName = elementName.slice(1); // remove attributeChar prefix
-            var attrVal = jsObj===null ? '' : jsObj.constructor==Date ? dateFormatted(jsObj) : jsObj.toString();
+            const attrName = elementName.slice(1); // remove attributeChar prefix
+            const attrVal = jsObj===null ? '' : jsObj.constructor==Date ? dateFormatted(jsObj) : jsObj.toString();
             xmlNode.setAttribute(attrName, attrVal);
             return;
         }
 
         // handle primitives
         if (isPrimitive(jsObj)) {
-            var value = jsObj===null ? '' : jsObj.toString();
-            node = doc.createTextNode(value);
+            const value = jsObj===null ? '' : jsObj.toString();
+            const node = doc.createTextNode(value);
+            let element = null;
             if (elementName == config.attributeChar) {
                 // if elementName == '_', attach value directly to parent
                 element = node;
@@ -144,8 +143,8 @@ var xmlify = function(jsObject /*, [root], [options] */) {
 
         // handle dates
         if (jsObj.constructor == Date) {
-            node = doc.createTextNode(dateFormatted(jsObj));
-            element = doc.createElement(elementName);
+            const node = doc.createTextNode(dateFormatted(jsObj));
+            const element = doc.createElement(elementName);
             element.appendChild(node);
             xmlNode.appendChild(element);
             return;
@@ -153,17 +152,17 @@ var xmlify = function(jsObject /*, [root], [options] */) {
 
         // handle arrays (recursively)
         if (jsObj.constructor == Array) {
-            var singularName = inflection.singularize(elementName);
+            const singularName = inflection.singularize(elementName);
             // add wrapper node? (always for empty arrays and if root element is array)
             if ((config.wrapArrays && elementName!=singularName)
                 || jsObj.length===0
                 || xmlNode.constructor.name=='Document') {
-                xmlChildNode = doc.createElement(elementName);
+                const xmlChildNode = doc.createElement(elementName);
                 xmlNode.appendChild(xmlChildNode);
                 xmlNode = xmlChildNode;
             }
             // recursively convert each array element
-            for (var n=0; n<jsObj.length; n++) {
+            for (let n=0; n<jsObj.length; n++) {
                 if (jsObj[n].constructor == Array) throw Error('Xmlify: Cannot convert nested arrays');
                 jsToXml(jsObj[n], config.wrapArrays ? singularName : elementName, xmlNode);
             }
@@ -175,12 +174,12 @@ var xmlify = function(jsObject /*, [root], [options] */) {
 
         // handle objects (recursively)
         if (typeof jsObj == 'object') {
-            xmlChildNode = doc.createElement(elementName);
+            const xmlChildNode = doc.createElement(elementName);
             xmlNode.appendChild(xmlChildNode);
             // recursively convert each object property
-            for (var childName in jsObj) {
+            for (let childName in jsObj) {
                 if (!jsObj.hasOwnProperty(childName)) continue; // ignore inherited properties
-                var jsChildObj = jsObj[childName];
+                const jsChildObj = jsObj[childName];
                 jsToXml(jsChildObj, childName, xmlChildNode);
             }
             return;
@@ -218,7 +217,7 @@ var xmlify = function(jsObject /*, [root], [options] */) {
      * Dates can be formatted as ISO, SQL (space replacing 'T'), or JavaScript default format.
      */
     function dateFormatted(date) {
-        var d;
+        let d = null;
 
         if (date.toString() == 'Invalid Date') return ''; // eg MySQL 0000-00-00
 
